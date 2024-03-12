@@ -1,0 +1,12 @@
+
+Comando para baixar uma imagem:
+>> docker pull ubuntu
+
+Comando para executar a imagem baixada:
+>> docker run ubuntu
+
+Comando para apresentar os containers e seus status:
+>> docker container ls -a
+Ao executar o container "ubuntu", vai ser apresentado com Status "Exited" (inativo). Pois para um container se manter em execução, é preciso que tenha ao menos um processo sendo executado dentro dele.
+Segue abaixo um exemplo que o ubuntu parmenece sendo executado, por ter um parâmetro de um dia de Sleep.
+>> docker run ubuntu sleep 1d
