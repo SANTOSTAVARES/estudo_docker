@@ -7,6 +7,24 @@ Comando para executar a imagem baixada:
 
 Comando para apresentar os containers e seus status:
 >> docker container ls -a
+Esse comanda acima apresenta containers com os status 'Up' e 'Exited'.
+
+Os comandos abaixo, não apresentam containers com status inativos:
+>> docker ps
+>> docker container ls
+
 Ao executar o container "ubuntu", vai ser apresentado com Status "Exited" (inativo). Pois para um container se manter em execução, é preciso que tenha ao menos um processo sendo executado dentro dele.
 Segue abaixo um exemplo que o ubuntu parmenece sendo executado, por ter um parâmetro de um dia de Sleep.
 >> docker run ubuntu sleep 1d
+
+Segue abaixo o comando para parar de executar um container
+>> docker stop [CONTAINER ID] 
+
+Segue abaixo o comando para reativar o container:
+>> docker start [CONTAINER ID] 
+
+Para executar o terminal do container em modo interativo, deve usar o seguinte comando:
+>> docker exec -it [CONTAINER ID] bash
+
+Comando abaixo executa o container e acesso o termianl do ubuntu, sem precisar adicionar o parâmetro sleep
+>> docker run -it ubuntu bash
