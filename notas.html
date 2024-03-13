@@ -17,7 +17,10 @@ Ao executar o container "ubuntu", vai ser apresentado com Status "Exited" (inati
 Segue abaixo um exemplo que o ubuntu parmenece sendo executado, por ter um parâmetro de um dia de Sleep.
 >> docker run ubuntu sleep 1d
 
-Segue abaixo o comando para parar de executar um container
+Segue abaixo o comando para parar de executar um container. Após usar esse comando, o container demora 10 segundas para parar de fato.
+>> docker stop [CONTAINER ID] 
+
+Segue abaixo o comando com o comando para parar de executar um container imediatamente.
 >> docker stop [CONTAINER ID] 
 
 Segue abaixo o comando para reativar o container:
@@ -25,6 +28,9 @@ Segue abaixo o comando para reativar o container:
 
 Segue abaixo o comando para pausar o container:
 >> docker pause [CONTAINER ID] 
+
+Segue abaixo o comando para despausar o container:
+>> docker unpause [CONTAINER ID] 
 
 Para executar o terminal do container em modo interativo, deve usar o seguinte comando:
 >> docker exec -it [CONTAINER ID] bash
