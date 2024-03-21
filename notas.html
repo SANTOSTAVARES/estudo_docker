@@ -1,39 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudo do Docker</title>
+</head>
+<style>
+    h1 {
+        text-align: center;
+    }
+</style>
+<body>
+    <h1>Comandos Docker</h1>
+    
+    <h2>Baixar uma imagem</h2>
+    <p>>> docker pull ubuntu</p>
 
-Comando para baixar uma imagem:
->> docker pull ubuntu
+    <h2>Executar a imagem baixada:</h2>
+    <p>>> docker run ubuntu</p>
 
-Comando para executar a imagem baixada:
->> docker run ubuntu
+    <h2>Apresenta os containers e seus status</h2>
+    <h3>Esse comando apresenta containers com os status 'Up' e 'Exited'</h3>
+    <p>>> docker container ls -a</p>
 
-Comando para apresentar os containers e seus status:
->> docker container ls -a
-Esse comanda acima apresenta containers com os status 'Up' e 'Exited'.
+    <h2>Não apresentam containers com status inativos:</h2>
+    <p>
+        >> docker ps <br>
+        >> docker container ls
+    </p>
 
-Os comandos abaixo, não apresentam containers com status inativos:
->> docker ps
->> docker container ls
+    <h2>Parâmetro Sleep</h2>
+    <div>Ao executar o container "ubuntu", vai ser apresentado com Status "Exited" (inativo). Pois para um container se manter em execução, é preciso que tenha ao menos um processo sendo executado dentro dele.
+    Segue abaixo um exemplo que o ubuntu parmenece sendo executado, por ter um parâmetro de um dia de Sleep.</div>
+    <p>>> docker run ubuntu sleep 1d</p>
 
-Ao executar o container "ubuntu", vai ser apresentado com Status "Exited" (inativo). Pois para um container se manter em execução, é preciso que tenha ao menos um processo sendo executado dentro dele.
-Segue abaixo um exemplo que o ubuntu parmenece sendo executado, por ter um parâmetro de um dia de Sleep.
->> docker run ubuntu sleep 1d
+    <h2>Segue abaixo o comando para parar de executar um container. Após usar esse comando, o container demora 10 segundas para parar de fato</h2>
+    <p>>> docker stop [CONTAINER ID] </p>
 
-Segue abaixo o comando para parar de executar um container. Após usar esse comando, o container demora 10 segundas para parar de fato.
->> docker stop [CONTAINER ID] 
+    <h2>Segue abaixo o comando com o comando para parar de executar um container imediatamente</h2>
+    <p>>> docker stop [CONTAINER ID] </p>
 
-Segue abaixo o comando com o comando para parar de executar um container imediatamente.
->> docker stop [CONTAINER ID] 
+    <h2>Segue abaixo o comando para reativar o container</h2>
+    <p>>> docker start [CONTAINER ID] </p>
 
-Segue abaixo o comando para reativar o container:
->> docker start [CONTAINER ID] 
+    <h2>Segue abaixo o comando para pausar o container</h2>
+    <p>>> docker pause [CONTAINER ID] </p>
 
-Segue abaixo o comando para pausar o container:
->> docker pause [CONTAINER ID] 
+    <h2>Segue abaixo o comando para despausar o container</h2>
+    <p>> docker unpause [CONTAINER ID] </p>
 
-Segue abaixo o comando para despausar o container:
->> docker unpause [CONTAINER ID] 
+    <h2>Para executar o terminal do container em modo interativo, deve usar o seguinte comando</h2>
+    <p>>> docker exec -it [CONTAINER ID] bash</p>
 
-Para executar o terminal do container em modo interativo, deve usar o seguinte comando:
->> docker exec -it [CONTAINER ID] bash
+    <h2>Executar o container e acessar o termianl do ubuntu, sem precisar adicionar o parâmetro sleep</h2>
+    <p>>> docker run -it ubuntu bash</p>
 
-Comando abaixo executa o container e acesso o termianl do ubuntu, sem precisar adicionar o parâmetro sleep
->> docker run -it ubuntu bash
+    <h2>Remover container</h2>
+    <p>>>docker rm [CONTAINER ID]</p>
+    
+    <h2>Parâmetro -d para não travar o termianl</h2>
+    <p>>>docker run -d [nome da imagem docker]</p>
+
+    <h1>Docker samples</h1>
+    <h2>Imagem docker utilizado como exemplo de aplicação web</h2>
+    <a href="https://hub.docker.com/r/dockersamples/static-site">Site estático</a>
+    <p>>>docker run -d dockersamples/static-site</p>
+
+    <p>>>docker run -d -P dockersamples/static-site <br>
+    >>docker ps</p>
+    >>docker port [CONTAINER ID]
+
+    >>docker run -d -p 8080:80 dockersamples/static-site 
+
+    >>docker images
+
+    >>docker inspect [CONTAINER ID]
+
+</body>
+</html>
