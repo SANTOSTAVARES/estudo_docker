@@ -74,7 +74,36 @@
 
     >>docker images
 
+    Mostra a informação do container de forma detalhada
     >>docker inspect [CONTAINER ID]
 
+    Mostra as camadas de images que forma a image final
+    >>docker history [CONTAINER ID]
+
+    Container não precisa necessiariamente ter um sistema operacional
+
+    Nome do arquivo: Dockerfile
+        FROM node:14
+        WORKDIR /app-node
+        COPY . .
+        RUN npm install
+        ENTRYPOINT npm start
+        
+        FROM node:14: Define a imagem base para ser usada na construção do container. Neste caso, está usando a imagem oficial do Node.js versão 14.
+        WORKDIR /app-node: Define o diretório de trabalho dentro do container. Todos os comandos subsequentes serão executados neste diretório.
+        COPY . .: Copia todos os arquivos do diretório atual no host (pasta onde está o arquivo Docker) para o diretório de trabalho atual de dentro do container.
+        RUN npm install: Executa o comando npm install no diretório de trabalho atual, instalando todas as dependências listadas no arquivo package.json.
+        ENTRYPOINT npm start: Define o comando padrão que será executado quando o container iniciar. Neste caso, é o comando npm start, que geralmente inicia a aplicação Node.js.
+
+        Comando que cria a image referente aos parâmetros do arquivo Dockerfile.
+        passamos o -t, para criar um nome, ou seja, etiquetar a nossa imagem. Nesse caso, vamos colocar danielartini/app-node, por exemplo, na versão 1. Com os dois pontos (:), podemos explicitar qual é a versão que estamos criando.
+        Em qual contexto tudo isso terá que ser executado? No contexto do diretório atual, ou seja, ponto (.) que é a referência ao diretório atual.
+        >>docker build -t gabriel/app-node:1.0 .
+
+        Após criar a image, é possível executar o container pelo comando abaixo.
+        No código da aplicação Node, está parametrizado que ela irá utilizar a porta 3000 e, abaixo foi parametrizado que a porta fora do container é a 8081
+        >>docker run -d -p 8081:3000 gabriel/app-node:1.0
+
+        Após executar o container, pode ir no navegador e acessar "http://localhost:8081/" que, será possível acessar a aplicação.
 </body>
 </html>
