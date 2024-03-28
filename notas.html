@@ -9,136 +9,143 @@
     h1 {
         text-align: center;
     }
+    body {
+        background-color: rgb(201, 227, 224);
+    }
+    main {
+        display: block;
+        margin: auto;
+        max-width: 600px;
+        background-color: aliceblue;
+        padding: 10px 10px;
+        border-radius: 10px;
+    }
+    p {
+        text-align: justify;
+        line-height: 1.2;
+    }
+    p.terminal
+    {
+        display: block;
+        margin: 5px;
+        background-color: rgb(0, 0, 0);
+        padding: 10px 10px;
+        color: white;
+        border-radius: 10px;
+    }
 </style>
 <body>
-    <h1>Comandos Docker</h1>
-    
-    <h2>Baixar uma imagem</h2>
-    <p>>> docker pull ubuntu</p>
-
-    <h2>Executar a imagem baixada:</h2>
-    <p>>> docker run ubuntu</p>
-
-    <h2>Apresenta os containers e seus status</h2>
-    <h3>Esse comando apresenta containers com os status 'Up' e 'Exited'</h3>
-    <p>>> docker container ls -a</p>
-
-    <h2>Não apresentam containers com status inativos:</h2>
-    <p>
-        >> docker ps <br>
-        >> docker container ls
-    </p>
-
-    <h2>Parâmetro Sleep</h2>
-    <div>Ao executar o container "ubuntu", vai ser apresentado com Status "Exited" (inativo). Pois para um container se manter em execução, é preciso que tenha ao menos um processo sendo executado dentro dele.
-    Segue abaixo um exemplo que o ubuntu parmenece sendo executado, por ter um parâmetro de um dia de Sleep.</div>
-    <p>>> docker run ubuntu sleep 1d</p>
-
-    <h2>Segue abaixo o comando para parar de executar um container. Após usar esse comando, o container demora 10 segundas para parar de fato</h2>
-    <p>>> docker stop [CONTAINER ID] </p>
-
-    <h2>Segue abaixo o comando com o comando para parar de executar um container imediatamente</h2>
-    <p>>> docker stop [CONTAINER ID] </p>
-
-    <h2>Segue abaixo o comando para reativar o container</h2>
-    <p>>> docker start [CONTAINER ID] </p>
-
-    <h2>Segue abaixo o comando para pausar o container</h2>
-    <p>>> docker pause [CONTAINER ID] </p>
-
-    <h2>Segue abaixo o comando para despausar o container</h2>
-    <p>> docker unpause [CONTAINER ID] </p>
-
-    <h2>Para executar o terminal do container em modo interativo, deve usar o seguinte comando</h2>
-    <p>>> docker exec -it [CONTAINER ID] bash</p>
-
-    <h2>Executar o container e acessar o termianl do ubuntu, sem precisar adicionar o parâmetro sleep</h2>
-    <p>>> docker run -it ubuntu bash</p>
-
-    <h2>Remover container</h2>
-    <p>>>docker rm [CONTAINER ID]</p>
-    
-    <h2>Parâmetro -d para não travar o termianl</h2>
-    <p>>>docker run -d [nome da imagem docker]</p>
-
-    <h1>Docker samples</h1>
-    <h2>Imagem docker utilizado como exemplo de aplicação web</h2>
-    <a href="https://hub.docker.com/r/dockersamples/static-site">Site estático</a>
-    <p>>>docker run -d dockersamples/static-site</p>
-
-    <p>>>docker run -d -P dockersamples/static-site <br>
-    >>docker ps</p>
-    >>docker port [CONTAINER ID]
-
-    >>docker run -d -p 8080:80 dockersamples/static-site 
-
-    >>docker images
-
-    Mostra a informação do container de forma detalhada
-    >>docker inspect [CONTAINER ID]
-
-    Mostra as camadas de images que forma a image final
-    >>docker history [CONTAINER ID]
-
-    Container não precisa necessiariamente ter um sistema operacional
-
-    Nome do arquivo: Dockerfile
-        FROM node:14
-        WORKDIR /app-node
-        COPY . .
-        RUN npm install
-        ENTRYPOINT npm start
+    <main>
         
-        FROM node:14: Define a imagem base para ser usada na construção do container. Neste caso, está usando a imagem oficial do Node.js versão 14.
-        WORKDIR /app-node: Define o diretório de trabalho dentro do container. Todos os comandos subsequentes serão executados neste diretório.
-        COPY . .: Copia todos os arquivos do diretório atual no host (pasta onde está o arquivo Dockerfile) para o diretório de trabalho atual de dentro do container (que foi estabelecido na instrução Workdir). <br> Neste caso, também poderia ser descrito da seguinte forma: COPY . /app-node
-        RUN npm install: Executa o comando npm install no diretório de trabalho atual, instalando todas as dependências listadas no arquivo package.json.
-        ENTRYPOINT npm start: Define o comando padrão que será executado quando o container iniciar. Neste caso, é o comando npm start, que geralmente inicia a aplicação Node.js.
-
-        Comando que cria a image referente aos parâmetros do arquivo Dockerfile.
-        passamos o -t, para criar um nome, ou seja, etiquetar a nossa imagem. Nesse caso, vamos colocar danielartini/app-node, por exemplo, na versão 1. Com os dois pontos (:), podemos explicitar qual é a versão que estamos criando.
-        Em qual contexto tudo isso terá que ser executado? No contexto do diretório atual, ou seja, ponto (.) que é a referência ao diretório atual.
-        >>docker build -t gabriel/app-node:1.0 .
-
-        Após criar a image, é possível executar o container pelo comando abaixo.
-        No código da aplicação Node, está parametrizado que ela irá utilizar a porta 3000 e, abaixo foi parametrizado que a porta fora do container é a 8081
-        >>docker run -d -p 8081:3000 gabriel/app-node:1.0
-
-        Após executar o container, pode ir no navegador e acessar "http://localhost:8081/" que, será possível acessar a aplicação.
-
-        Exibir porta em uso dentro do container
-        Para isso é preciso usar no Dockerfile a instrução Expose. Pois sem isso, ao executar o comando "docker ps", ele não exibe a porta em uso de dentro do container. Para isso, o Dokcerfile deveria ficar como no exemplo abaixo:
+        <h1>Comandos Docker</h1>
+        
+        <h2>Baixar uma imagem</h2>
+        <p class="terminal"> >> docker pull ubuntu</p>
+        <h2>Executar a imagem baixada:</h2>
+        <p class="terminal"> >> docker run ubuntu</p>
+        <h2>Apresenta os containers e seus status</h2>
+        <h3>Esse comando apresenta containers com os status 'Up' e 'Exited'</h3>
+        <p class="terminal"> >> docker container ls -a</p>
+        <h2>Não apresentam containers com status inativos:</h2>
+        <p class="terminal"> 
+            >> docker ps <br>
+            >> docker container ls
+        </p>
+        <h2>Parâmetro Sleep</h2>
+        <div>Ao executar o container "ubuntu", vai ser apresentado com Status "Exited" (inativo). Pois para um container se manter em execução, é preciso que tenha ao menos um processo sendo executado dentro dele.
+        Segue abaixo um exemplo que o ubuntu parmenece sendo executado, por ter um parâmetro de um dia de Sleep.</div>
+        <p class="terminal"> >> docker run ubuntu sleep 1d</p>
+        <h2>Segue abaixo o comando para parar de executar um container. Após usar esse comando, o container demora 10 segundas para parar de fato</h2>
+        <p class="terminal"> >> docker stop [CONTAINER ID] </p>
+        <h2>Segue abaixo o comando com o comando para parar de executar um container imediatamente</h2>
+        <p class="terminal"> >> docker stop [CONTAINER ID] </p>
+        <h2>Segue abaixo o comando para reativar o container</h2>
+        <p class="terminal"> >> docker start [CONTAINER ID] </p>
+        <h2>Segue abaixo o comando para pausar o container</h2>
+        <p class="terminal"> >> docker pause [CONTAINER ID] </p>
+        <h2>Segue abaixo o comando para despausar o container</h2>
+        <p class="terminal"> > docker unpause [CONTAINER ID] </p>
+        <h2>Para executar o terminal do container em modo interativo, deve usar o seguinte comando</h2>
+        <p class="terminal"> >> docker exec -it [CONTAINER ID] bash</p>
+        <h2>Executar o container e acessar o termianl do ubuntu, sem precisar adicionar o parâmetro sleep</h2>
+        <p class="terminal"> >> docker run -it ubuntu bash</p>
+        <h2>Remover container</h2>
+        <p class="terminal"> >>docker rm [CONTAINER ID]</p>
+        
+        <h2>Parâmetro -d para não travar o termianl</h2>
+        <p class="terminal"> >>docker run -d [nome da imagem docker]</p>
+        <h1>Docker samples</h1>
+        <h2>Imagem docker utilizado como exemplo de aplicação web</h2>
+        <a href="https://hub.docker.com/r/dockersamples/static-site">Site estático</a>
+        <p class="terminal"> >>docker run -d dockersamples/static-site</p>
+        <p class="terminal"> >>docker run -d -P dockersamples/static-site </p>
+        <p class="terminal">>>docker ps</p>
+        <p class="terminal">>>docker port [CONTAINER ID]</p>
+        <p class="terminal">>>docker run -d -p 8080:80 dockersamples/static-site</p>
+        <p class="terminal">>>docker images</p>
+        Mostra a informação do container de forma detalhada
+        <p class="terminal">>>docker inspect [CONTAINER ID]</p>
+        Mostra as camadas de images que forma a image final
+        <p class="terminal">>>docker history [CONTAINER ID]</p>
+        <p>Container não precisa necessiariamente ter um sistema operacional</p>
+        Nome do arquivo: Dockerfile
             FROM node:14
             WORKDIR /app-node
-            Expose 3000
             COPY . .
             RUN npm install
             ENTRYPOINT npm start
-
-        Instruções relativas a porta:
-        ARG é uma instrução executada na construção da image
-        ENV é uma instrução para aplicação usar dentro do container
-
-        No exemplo abaixo, a instrução ARG determina a porta de uso de dentro do container na criação da image e, as instruções ARG e ENV, utilizam ela por meio da variável PORT_BUILD.
-        Dockerfile:
-            FROM node:14
-            WORKDIR /app-node
-            ARG PORT_BUILD=6000
-            ENV PORT=$PORT_BUILD
-            EXPOSE $PORT_BUILD
-            COPY . .
-            RUN npm install
-            ENTRYPOINT npm start
-
-        Também foi feita a atualização no arquivo index.js, para que a aplicação passasse a usar a porta determina no container que no exemplo acima, ficou como porta 6000 na instrução ARG:
-        De: 
-            app.listen("3000", ()=>{
-                console.log("Server is listening on port 3000")
-            })
-        Para:
-            app.listen(process.env.PORT, ()=>{
-                console.log("Server is listening on port 3000")
-            })
+        <p>
+            
+                FROM node:14: Define a imagem base para ser usada na construção do container. Neste caso, está usando a imagem oficial do Node.js versão 14.
+                WORKDIR /app-node: Define o diretório de trabalho dentro do container. Todos os comandos subsequentes serão executados neste diretório.
+                COPY . .: Copia todos os arquivos do diretório atual no host (pasta onde está o arquivo Dockerfile) para o diretório de trabalho atual de dentro do container (que foi estabelecido na instrução Workdir). <br> Neste caso, também poderia ser descrito da seguinte forma: COPY . /app-node
+                RUN npm install: Executa o comando npm install no diretório de trabalho atual, instalando todas as dependências listadas no arquivo package.json.
+                ENTRYPOINT npm start: Define o comando padrão que será executado quando o container iniciar. Neste caso, é o comando npm start, que geralmente inicia a aplicação Node.js.
+                Comando que cria a image referente aos parâmetros do arquivo Dockerfile.
+                passamos o -t, para criar um nome, ou seja, etiquetar a nossa imagem. Nesse caso, vamos colocar danielartini/app-node, por exemplo, na versão 1. Com os dois pontos (:), podemos explicitar qual é a versão que estamos criando.
+                Em qual contexto tudo isso terá que ser executado? No contexto do diretório atual, ou seja, ponto (.) que é a referência ao diretório atual.
+        </p>
+            <p class="terminal">>>docker build -t gabriel/app-node:1.0 .</p>
+            Após criar a image, é possível executar o container pelo comando abaixo.
+            No código da aplicação Node, está parametrizado que ela irá utilizar a porta 3000 e, abaixo foi parametrizado que a porta fora do container é a 8081
+            <p class="terminal">>>docker run -d -p 8081:3000 gabriel/app-node:1.0</p>
+            <p>
+                Após executar o container, pode ir no navegador e acessar "http://localhost:8081/" que, será possível acessar a aplicação.
+                Exibir porta em uso dentro do container
+                Para isso é preciso usar no Dockerfile a instrução Expose. Pois sem isso, ao executar o comando "docker ps", ele não exibe a porta em uso de dentro do container. Para isso, o Dokcerfile deveria ficar como no exemplo abaixo:
+            </p>
+                FROM node:14 <br>
+                WORKDIR /app-node <br>
+                Expose 3000 <br>
+                COPY . . <br>
+                RUN npm install <br>
+                ENTRYPOINT npm start <br>
+            <p>
+                Instruções relativas a porta:
+                ARG é uma instrução executada na construção da image
+                ENV é uma instrução para aplicação usar dentro do container
+                No exemplo abaixo, a instrução ARG determina a porta de uso de dentro do container na criação da image e, as instruções ARG e ENV, utilizam ela por meio da variável PORT_BUILD.
+            </p>
+            Dockerfile: <br>
+                FROM node:14 <br>
+                WORKDIR /app-node <br>
+                ARG PORT_BUILD=6000 <br>
+                ENV PORT=$PORT_BUILD <br>
+                EXPOSE $PORT_BUILD <br>
+                COPY . . <br>
+                RUN npm install <br>
+                ENTRYPOINT npm start <br>
+            <p>Também foi feita a atualização no arquivo index.js, para que a aplicação passasse a usar a porta determina no container que no exemplo acima, ficou como porta 6000 na instrução ARG:</p>
+            De:
+                app.listen("3000", ()=>{
+                    console.log("Server is listening on port 3000")
+                })
+                <br>
+            Para:
+                app.listen(process.env.PORT, ()=>{
+                    console.log("Server is listening on port 3000")
+                })
         
+    </main>
 </body>
 </html>
