@@ -23,6 +23,7 @@
     p {
         text-align: justify;
         line-height: 1.2;
+        text-indent: 10px;
     }
     p.terminal
     {
@@ -32,6 +33,7 @@
         padding: 10px 10px;
         color: white;
         border-radius: 10px;
+        text-indent: 0px;
     }
 </style>
 <body>
@@ -96,10 +98,10 @@
             ENTRYPOINT npm start
         <p>
             
-                FROM node:14: Define a imagem base para ser usada na construção do container. Neste caso, está usando a imagem oficial do Node.js versão 14.
-                WORKDIR /app-node: Define o diretório de trabalho dentro do container. Todos os comandos subsequentes serão executados neste diretório.
-                COPY . .: Copia todos os arquivos do diretório atual no host (pasta onde está o arquivo Dockerfile) para o diretório de trabalho atual de dentro do container (que foi estabelecido na instrução Workdir). <br> Neste caso, também poderia ser descrito da seguinte forma: COPY . /app-node
-                RUN npm install: Executa o comando npm install no diretório de trabalho atual, instalando todas as dependências listadas no arquivo package.json.
+                FROM node:14: Define a imagem base para ser usada na construção do container. Neste caso, está usando a imagem oficial do Node.js versão 14. <br>
+                WORKDIR /app-node: Define o diretório de trabalho dentro do container. Todos os comandos subsequentes serão executados neste diretório.<br>
+                COPY . .: Copia todos os arquivos do diretório atual no host (pasta onde está o arquivo Dockerfile) para o diretório de trabalho atual de dentro do container (que foi estabelecido na instrução Workdir). <br> Neste caso, também poderia ser descrito da seguinte forma: COPY . /app-node <br>
+                RUN npm install: Executa o comando npm install no diretório de trabalho atual, instalando todas as dependências listadas no arquivo package.json. <br>
                 ENTRYPOINT npm start: Define o comando padrão que será executado quando o container iniciar. Neste caso, é o comando npm start, que geralmente inicia a aplicação Node.js.
                 Comando que cria a image referente aos parâmetros do arquivo Dockerfile.
                 passamos o -t, para criar um nome, ou seja, etiquetar a nossa imagem. Nesse caso, vamos colocar danielartini/app-node, por exemplo, na versão 1. Com os dois pontos (:), podemos explicitar qual é a versão que estamos criando.
@@ -114,12 +116,14 @@
                 Exibir porta em uso dentro do container
                 Para isso é preciso usar no Dockerfile a instrução Expose. Pois sem isso, ao executar o comando "docker ps", ele não exibe a porta em uso de dentro do container. Para isso, o Dokcerfile deveria ficar como no exemplo abaixo:
             </p>
-                FROM node:14 <br>
-                WORKDIR /app-node <br>
-                Expose 3000 <br>
-                COPY . . <br>
-                RUN npm install <br>
-                ENTRYPOINT npm start <br>
+                <p class="terminal">
+                    FROM node:14 <br>
+                    WORKDIR /app-node <br>
+                    Expose 3000 <br>
+                    COPY . . <br>
+                    RUN npm install <br>
+                    ENTRYPOINT npm start <br>
+                </p>
             <p>
                 Instruções relativas a porta:
                 ARG é uma instrução executada na construção da image
@@ -127,14 +131,16 @@
                 No exemplo abaixo, a instrução ARG determina a porta de uso de dentro do container na criação da image e, as instruções ARG e ENV, utilizam ela por meio da variável PORT_BUILD.
             </p>
             Dockerfile: <br>
-                FROM node:14 <br>
-                WORKDIR /app-node <br>
-                ARG PORT_BUILD=6000 <br>
-                ENV PORT=$PORT_BUILD <br>
-                EXPOSE $PORT_BUILD <br>
-                COPY . . <br>
-                RUN npm install <br>
-                ENTRYPOINT npm start <br>
+                <p class="terminal">
+                    FROM node:14 <br>
+                    WORKDIR /app-node <br>
+                    ARG PORT_BUILD=6000 <br>
+                    ENV PORT=$PORT_BUILD <br>
+                    EXPOSE $PORT_BUILD <br>
+                    COPY . . <br>
+                    RUN npm install <br>
+                    ENTRYPOINT npm start <br>
+                </p>
             <p>Também foi feita a atualização no arquivo index.js, para que a aplicação passasse a usar a porta determina no container que no exemplo acima, ficou como porta 6000 na instrução ARG:</p>
             De:
                 app.listen("3000", ()=>{
