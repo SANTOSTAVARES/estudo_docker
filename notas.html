@@ -25,7 +25,7 @@
         line-height: 1.2;
         text-indent: 10px;
     }
-    p.terminal
+    p.terminal, div.terminal
     {
         display: block;
         margin: 5px;
@@ -35,12 +35,22 @@
         border-radius: 10px;
         text-indent: 0px;
     }
+    table {
+            width: 200px;
+            height: 200px;
+            border-collapse: collapse;
+            border: 5px solid rgb(255, 255, 255);
+        }
+    td {
+        border:  2px solid rgb(255, 255, 255);
+    }
+    th {
+        border:  2px solid rgb(255, 255, 255);
+    }
 </style>
 <body>
     <main>
-        
         <h1>Comandos Docker</h1>
-        
         <h2>Baixar uma imagem</h2>
         <p class="terminal"> >> docker pull ubuntu</p>
         <h2>Executar a imagem baixada:</h2>
@@ -151,7 +161,41 @@
                 app.listen(process.env.PORT, ()=>{
                     console.log("Server is listening on port 3000")
                 })
-            <h3>Resumo do capítulo</h3>
+            
+                <h2>Como criar repositório no Docker Hub</h2>
+                <p>Após criar a image abaixo, ela pode ser enviada para um repositório do Docker Hub.</p>
+                 <div class="terminal">
+                     <p>>> Docker images</p>
+                     <table>
+                         <tr>
+                             <th>REPOSITORY</th>
+                             <th>TAG</th>
+                             <th>IMAGE ID</th>
+                             <th>CREATED</th>
+                             <th>SIZE</th>
+                         </tr>
+                         <tr>
+                             <td>gabriel/app-node</td>
+                             <td>1.0</td>
+                             <td>4a8a53f64b4d</td>
+                             <td>9 days ago</td>
+                             <td>913MB</td>
+                         </tr>
+                     </table>
+                 </div>
+                 <p>É possível logar no Docker Hub pelo comando a seguir:</p>
+                 <p>Docker login -u [Usuário do docker hub]</p>
+                 <p class="terminal">>> docker login -u tavarestavares</p>
+                 <p>Em seguida deve ser digitada a senha:</p>
+                 <p>#Git123456</p>
+                 <p>Para enviar a image para o docker hub, a image deve ter o nome de usuário do Docker hub. <br>
+                 Por isso, devo criar uma cópia da image, porém com o nome correto para ser possível realizar o push.</p>
+                 <p class="terminal">>> docker tag gabriel/app-node:1.0 tavarestavares/app-node:1.0</p>
+                 <p>O comando para enviar a image para o repositório, é o seguinte:</p>
+                 <p class="terminal">>> docker push tavarestavares/app-node:1.0</p>
+                 
+     
+                <h3>Resumo do capítulo</h3>
             <li>Imagens são imutáveis, ou seja, depois de baixadas, múltiplos containers conseguirão reutilizar a mesma imagem;</li>
             <li>Imagens são compostas por uma ou mais camadas. Dessa forma, diferentes imagens são capazes de reutilizar uma ou mais camadas em comum entre si;</li>
             <li>Podemos criar nossas imagens através de Dockerfiles e do comando docker build;</li>
@@ -173,7 +217,7 @@
            <p class="terminal">>> docker rmi $(docker image ls -aq)</p>
            <h2>Tamanho do container</h2>
             <p>O parâmtero -s, faz com que exiba o tamanho do container e seu tamanho virtual. O tamanho virtual, é a soma de tamanho de todas imagens que compõe o container</p>
-           <p class="terminal">>>docker ps -s</p>
+           <p class="terminal">>> docker ps -s</p>
     </main>
 </body>
 </html>
