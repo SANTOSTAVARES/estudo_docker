@@ -54,12 +54,32 @@
         <h2>Como manter o volume num diretório local</h2>
         <p>No exemplo abaixo, é criado um container que pelo parâmetro é possível determinar, o  endereço do diretório local que deve manter todos volumes de um diretório específico de dentro do container.</p>
         <ol>
-            <li >Criar no diretório local, a pasta que deve conter as cópias simultâneas de um diretório de dentro do container.</li>
-            <p class="terminal">>> cd C:\Users\gsant\code_app\estudo_docker</p>
-            <p class="terminal">>> mkdir volume</p>
-            <li></li>
+            <li>Criar no diretório local, a pasta que deve conter as cópias  de um diretório de dentro do container, de forma simultâmea.</li>
+            <p class="terminal">cd C:\Users\gsant\code_app\estudo_docker</p>
+            <p class="terminal">mkdir volume</p>
+            <li>Criar o container ubuntu.</li>
+            <p class="terminal">docker run -it -v C:\Users\gsant\code_app\estudo_docker\volume:/app ubuntu bash</p>
+            <p>Pelo parâmetro -v é especificado antes dos dois pontos (:), o diretório local em que, seve ser replicado os arquivos do diretório de dentro do container que está descrito após os dois pontos (:). <br>
+            O diretório <strong>/app</strong> é criada no container a partir desse mesmo comando. 
+            </p>
+            <li>Criar um arquivo dentro do container e acessá-lo no diretório local.</li>
+            No terminal do container deve ser executado os seguintes comandos:
+            <ol type="I">
+            <li>Acessar a pasta /app.</li>
+            <p class="terminal">cd app</p>
+            <li>Mostrar que não há arquivos dentro da pasta.</li>
+            <p class="terminal">ls</p>
+            <li>Criar um arquivo dentro da pasta /app</li>
+            <p class="terminal">touch arquivo-qualquer.txt</p>
+            </ol>
+            <p>Após isso é possível verificar que o arquivo estará no diretório local, dentro no endereço: <br>
+                <strong>C:\Users\gsant\code_app\estudo_docker\volume</strong>
+            <p>Caso seja criado um arquivo diretamente no diretório local, ele também será refletido dentro do container.</p>
+            </p>
         </ol>
-        
+        <h2>Alternativa para manter volume</h2>
+        O comando abaixo é o que a própria documentação do docker recomenda priorizar. Este comando deve ser preferido por ser mais verboso.
+        <p class="terminal">docker run -it --mount type=bind,source=C:\Users\gsant\code_app\estudo_docker\volume,target=/app ubuntu bash</p>
     </main>
 </body>
 </html>

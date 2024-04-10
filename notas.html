@@ -52,55 +52,53 @@
     <main>
         <h1>Comandos Docker</h1>
         <h2>Baixar uma imagem</h2>
-        <p class="terminal"> >> docker pull ubuntu</p>
+        <p class="terminal">docker pull ubuntu</p>
         <h2>Executar a imagem baixada:</h2>
-        <p class="terminal"> >> docker run ubuntu</p>
+        <p class="terminal"> docker run ubuntu</p>
         <h2>Apresenta os containers e seus status</h2>
         <h3>Esse comando apresenta containers com os status 'Up' e 'Exited'</h3>
-        <p class="terminal"> >> docker container ls -a</p>
+        <p class="terminal">docker container ls -a</p>
         <h2>Não apresentam containers com status inativos:</h2>
-        <p class="terminal"> 
-            >> docker ps <br>
-            >> docker container ls
-        </p>
+        <p class="terminal">docker ps</p>
+        <p class="terminal">docker container ls</p>
         <h2>Parâmetro Sleep</h2>
         <div>Ao executar o container "ubuntu", vai ser apresentado com Status "Exited" (inativo). Pois para um container se manter em execução, é preciso que tenha ao menos um processo sendo executado dentro dele.
         Segue abaixo um exemplo que o ubuntu parmenece sendo executado, por ter um parâmetro de um dia de Sleep.</div>
-        <p class="terminal"> >> docker run ubuntu sleep 1d</p>
+        <p class="terminal">docker run ubuntu sleep 1d</p>
         <h2>Segue abaixo o comando para parar de executar um container. Após usar esse comando, o container demora 10 segundas para parar de fato</h2>
-        <p class="terminal"> >> docker stop [CONTAINER ID] </p>
+        <p class="terminal">docker stop [CONTAINER ID] </p>
         <h2>Segue abaixo o comando com o comando para parar de executar um container imediatamente</h2>
-        <p class="terminal"> >> docker stop [CONTAINER ID] </p>
+        <p class="terminal">docker stop [CONTAINER ID] </p>
         <h2>Segue abaixo o comando para reativar o container</h2>
-        <p class="terminal"> >> docker start [CONTAINER ID] </p>
+        <p class="terminal">docker start [CONTAINER ID] </p>
         <h2>Segue abaixo o comando para pausar o container</h2>
-        <p class="terminal"> >> docker pause [CONTAINER ID] </p>
+        <p class="terminal">docker pause [CONTAINER ID] </p>
         <h2>Segue abaixo o comando para despausar o container</h2>
-        <p class="terminal"> > docker unpause [CONTAINER ID] </p>
+        <p class="terminal">docker unpause [CONTAINER ID] </p>
         <h2>Para executar o terminal do container em modo interativo, deve usar o seguinte comando</h2>
-        <p class="terminal"> >> docker exec -it [CONTAINER ID] bash</p>
+        <p class="terminal">docker exec -it [CONTAINER ID] bash</p>
         <h2>Executar o container e acessar o termianl do ubuntu, sem precisar adicionar o parâmetro sleep</h2>
-        <p class="terminal"> >> docker run -it ubuntu bash</p>
+        <p class="terminal">docker run -it ubuntu bash</p>
         <h2>Remover container</h2>
-        <p class="terminal"> >>docker rm [CONTAINER ID]</p>
+        <p class="terminal">docker rm [CONTAINER ID]</p>
         <p>O comando abaixo, apresenta todas as imagens disponíveis</p>
-        <p class="terminal">>>docker images</p>
+        <p class="terminal">docker images</p>
 
         <h2>Parâmetro -d para não travar o termianl</h2>
-        <p class="terminal"> >>docker run -d [nome da imagem docker]</p>
+        <p class="terminal">docker run -d [nome da imagem docker]</p>
         <h1>Docker samples</h1>
         <h2>Imagem docker utilizado como exemplo de aplicação web</h2>
         <a href="https://hub.docker.com/r/dockersamples/static-site">Site estático</a>
-        <p class="terminal"> >>docker run -d dockersamples/static-site</p>
-        <p class="terminal"> >>docker run -d -P dockersamples/static-site </p>
-        <p class="terminal">>>docker ps</p>
-        <p class="terminal">>>docker port [CONTAINER ID]</p>
-        <p class="terminal">>>docker run -d -p 8080:80 dockersamples/static-site</p>
-        <p class="terminal">>>docker images</p>
+        <p class="terminal">docker run -d dockersamples/static-site</p>
+        <p class="terminal">docker run -d -P dockersamples/static-site </p>
+        <p class="terminal">docker ps</p>
+        <p class="terminal">docker port [CONTAINER ID]</p>
+        <p class="terminal">docker run -d -p 8080:80 dockersamples/static-site</p>
+        <p class="terminal">docker images</p>
         Mostra a informação do container de forma detalhada
-        <p class="terminal">>>docker inspect [CONTAINER ID]</p>
+        <p class="terminal">docker inspect [CONTAINER ID]</p>
         Mostra as camadas de images que forma a image final
-        <p class="terminal">>>docker history [CONTAINER ID]</p>
+        <p class="terminal">docker history [CONTAINER ID]</p>
         <p>Container não precisa necessiariamente ter um sistema operacional</p>
         Nome do arquivo: Dockerfile
             FROM node:14
@@ -119,10 +117,10 @@
                 passamos o -t, para criar um nome, ou seja, etiquetar a nossa imagem. Nesse caso, vamos colocar danielartini/app-node, por exemplo, na versão 1. Com os dois pontos (:), podemos explicitar qual é a versão que estamos criando.
                 Em qual contexto tudo isso terá que ser executado? No contexto do diretório atual, ou seja, ponto (.) que é a referência ao diretório atual.
         </p>
-            <p class="terminal">>>docker build -t gabriel/app-node:1.0 .</p>
+            <p class="terminal">docker build -t gabriel/app-node:1.0 .</p>
             Após criar a image, é possível executar o container pelo comando abaixo.
             No código da aplicação Node, está parametrizado que ela irá utilizar a porta 3000 e, abaixo foi parametrizado que a porta fora do container é a 8081
-            <p class="terminal">>>docker run -d -p 8081:3000 gabriel/app-node:1.0</p>
+            <p class="terminal">docker run -d -p 8081:3000 gabriel/app-node:1.0</p>
             <p>
                 Após executar o container, pode ir no navegador e acessar "http://localhost:8081/" que, será possível acessar a aplicação.
                 Exibir porta em uso dentro do container
@@ -167,7 +165,7 @@
                 <h2>Como criar repositório no Docker Hub</h2>
                 <p>Após criar a image abaixo, ela pode ser enviada para um repositório do Docker Hub.</p>
                  <div class="terminal">
-                     <p>>> Docker images</p>
+                     <p> Docker images</p>
                      <table>
                          <tr>
                              <th>REPOSITORY</th>
@@ -187,14 +185,14 @@
                  </div>
                  <p>É possível logar no Docker Hub pelo comando a seguir:</p>
                  <p>Docker login -u [Usuário do docker hub]</p>
-                 <p class="terminal">>> docker login -u tavarestavares</p>
+                 <p class="terminal"> docker login -u tavarestavares</p>
                  <p>Em seguida deve ser digitada a senha:</p>
                  <p>#Git123456</p>
                  <p>Para enviar a image para o docker hub, a image deve ter o nome de usuário do Docker hub. <br>
                  Por isso, devo criar uma cópia da image, porém com o nome correto para ser possível realizar o push.</p>
-                 <p class="terminal">>> docker tag gabriel/app-node:1.0 tavarestavares/app-node:1.0</p>
+                 <p class="terminal"> docker tag gabriel/app-node:1.0 tavarestavares/app-node:1.0</p>
                  <p>O comando para enviar a image para o repositório, é o seguinte:</p>
-                 <p class="terminal">>> docker push tavarestavares/app-node:1.0</p>
+                 <p class="terminal"> docker push tavarestavares/app-node:1.0</p>
                  
      
                 <h3>Resumo do capítulo</h3>
@@ -210,16 +208,16 @@
             <strong>
                 <p>O comando abaixo remove todos containers.</p>
             </strong>
-            <p class="terminal">>> docker container rm $(docker container ls -aq)</p>
+            <p class="terminal"> docker container rm $(docker container ls -aq)</p>
            <br>
            <h2>Remover imagens</h2> 
            <strong>
             <p>O comando abaixo remove todas images. (Esse comando ensinado no curso, não funcionou, pos retornou erro)</p>    
             </strong>
-           <p class="terminal">>> docker rmi $(docker image ls -aq)</p>
+           <p class="terminal"> docker rmi $(docker image ls -aq)</p>
            <h2>Tamanho do container</h2>
             <p>O parâmtero -s, faz com que exiba o tamanho do container e seu tamanho virtual. O tamanho virtual, é a soma de tamanho de todas imagens que compõe o container</p>
-           <p class="terminal">>> docker ps -s</p>
+           <p class="terminal"> docker ps -s</p>
     </main>
 </body>
 </html>
