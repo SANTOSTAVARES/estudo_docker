@@ -80,6 +80,34 @@
         <h2>Alternativa para manter volume</h2>
         O comando abaixo é o que a própria documentação do docker recomenda priorizar. Este comando deve ser preferido por ser mais verboso.
         <p class="terminal">docker run -it --mount type=bind,source=C:\Users\gsant\code_app\estudo_docker\volume,target=/app ubuntu bash</p>
+        <h2>Volumes disponíveis</h2>
+        <p class="terminal">docker volume ls</p>
+        <p>É possível criar um volume que não esteja vinculado a um container, para que posteriormente na criarção do container esse volume seja usado.</p>
+        <p>Isso é possível com o comando abaixo:</p>
+        <p class="terminal">docker volume create meu-volume</p>
+        <p class="terminal">docker run -it -v meu-volume:/app ubuntu bash</p>
+        <p class="terminal">cd app</p>
+        <p class="terminal">ls</p>
+        <p class="terminal">touch teste123.txt</p>
+        <p>Para sair do terminal do Linux</p>
+        <p class="terminal">exit</p>
+        <h3>Gerenciamento do volume</h3>
+        <p>Segue abaixo os parâmetros a serem usados com o comando: docker volume</p>
+        <li><strong>create</strong> para criar volumes;</li>
+        <li><strong>inspect</strong> para inspecioná-los;</li>
+        <li><strong>ls</strong> para listá-los;</li>
+        <li><strong>prune</strong> para remover os volumes que não estão sendo usados;</li>
+        <li><strong>rm</strong> para remover qualquer volume, sendo usado ou não.</li>
+        <p class="terminal">docker volume ls</p>
+        <h2>Criando volume com --mount</h2>
+        <p>Também temos a possibilidade de criar um volume com a flag <strong>--mount</strong>. Essa maneira é até mais fácil, porque por padrão ele assume que o tipo que vamos criar é um volume, então não precisamos colocar o tipo, como fizemos com o bind.</p>
+        <p>Vamos executar o comando de criação de um container com o <strong>--mount</strong>, sendo a <strong>source</strong> o nosso <strong>meu-volume</strong> e o target sendo o <strong>/app:</strong></p>
+        <p class="terminal">docker run -it --mount source=meu-volume,target=/app ubuntu bash</p>
+        <p>Estamos dentro do novo container. Se dermos um <strong>ls</strong> dentro de <strong>app</strong>, teremos o nosso <strong>um-arquivo-qualquer</strong>.</p>
+        <p>Temos ainda mais uma particularidade dos volumes. Se formos criar mais um container e colocarmos como <strong>source</strong>, por exemplo, um volume chamado <strong>meu-novo-volume</strong>, ou seja, um volume que não temos criado até então, ele será criado automaticamente:</p>
+        <p class="terminal">docker run -it --mount source=meu-novo-volume,target=/app ubuntu bash</p>
+        Dentro desse novo container, se dermos um <strong>ls</strong> em <strong>app</strong>, ele vai estar vazio, porque estamos usando um volume novo.
+        <p>Se sairmos desse container atual (com o comando exit) e executarmos um docker volume ls, verificaremos dois volumes criados: meu-volume e meu-novo-volume</p>
     </main>
 </body>
 </html>
