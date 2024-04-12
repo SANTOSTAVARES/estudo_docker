@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Como funciona o tmpfs?</title>
+    <style>
+        pre {
+            background-color: #090606;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+            font-size: 1em;
+            color: #f0eaea;
+        }
+    </style>
+</head>
+<body>
+    <h1>Como funciona o tmpfs?</h1>
+    <p>Nós executamos containers várias vezes. E agora, qual será a diferença? Como utilizamos um tmpfs?</p>
+
+    <p>Definiremos o funcionamento do container de maneira bem simples agora, porque não vamos utilizar a flag -v. Ele possui uma flag própria: a --tmpfs:</p>
+
+    <pre><code>docker run -it --tmpfs=/app ubuntu bash
+    </code></pre>
+
+    <p>Se executarmos esse comando, criamos um novo container.</p>
+
+    <p>Vamos dar um ls para conferir seu conteúdo. Ele criou a pasta "app" mas, diferente das outras vezes em que criamos essa pasta, agora ela está destacada em verde no retorno do ls, assim como a pasta "tmp".</p>
+
+    <p>Isso significa que a pasta "app" é temporária. Ela está sendo escrita na memória do nosso host. Ou seja, no momento em que esse container parar de funcionar, os arquivos da pasta "app" serão perdidos.</p>
+
+    <p>Para exemplificar, vamos criar um arquivo no diretório "app", chamado um-arquivo-qualquer novamente:</p>
+
+    <pre><code>touch app/um-arquivo-qualquer
+    </code></pre>
+
+    <p>Se dermos um ls em app, verificaremos nosso novo arquivo lá dentro.</p>
+
+    <p>Agora, vamos dar exit para parar esse container e criar um novo, com o mesmo comando de antes. Executando ls app mais uma vez, não teremos nada lá dentro.</p>
+
+    <p>Então, qual é a utilidade prática desse tipo de armazenamento que não armazena?</p>
+
+    <p>A ideia do tmpfs é, basicamente, persistir dados na memória do seu host, mas esses dados não estão sendo escritos na camada de read-write. Eles são escritos diretamente na memória do host.</p>
+
+    <p>Isso é importante quando temos algum dado sensível que não queremos persistir na camada de read-write, por questões de segurança, mas queremos tê-los de alguma maneira.</p>
+
+    <p>Nesse caso, poderíamos utilizar o tmpfs, então esses dados não seriam escritos na camada de read-write, ficando em memória, temporariamente. É uma questão de segurança que seria interessante em alguns cenários, como arquivos de senha, ou algum arquivo que não queremos carregar e manter durante a execução como um todo.</p>
+
+    <p>Vamos sair do container atual.</p>
+
+    <p>Tmpfs com a flag --mount</p>
+    <p>Assim como todas as outras abordagens que conhecemos (tanto de bind mount quanto de volume), podemos utilizar a flag --mount com o tmpfs, seguindo a mesma ideia: o type sendo tmpfs e a destination sendo a pasta app dentro do container:</p>
+
+    <pre><code>docker run -it --mount type=tmpfs,destination=/app ubuntu bash
+    </code></pre>
+
+    <p>Se executarmos ls dentro do container, mais uma vez as pastas "app" e "tmp" estarão destacadas em verde, como pastas temporárias.</p>
+
+    <p>Vamos criar um novo arquivo em "app", chamado um-arquivo-qualquer:</p>
+
+    <pre><code>touch app/um-arquivo-qualquer
+    </code></pre>
+
+    <p>Executando ls app, lá teremos o nosso novo arquivo.</p>
+
+    <p>Mas, se pararmos o container atual e criarmos um novo container (com o mesmo comando), não haverá nenhuma informação dentro de "app".</p>
+
+    <p>Então, recapitulando: caso queiramos colocar algum dado temporário que não deve ser armazenado, de maneira alguma, na camada de read-write, podemos utilizar o tmpfs.</p>
+
+    <p>Conclusão</p>
+    <p>Conhecemos três possibilidades de persistência de dados: o tmpfs; os bind-mounts, que fazem uma ligação direta entre o sistema de pastas do nosso host e do nosso container; e os volumes, que são a solução recomendada, pois são gerenciados pelo Docker e permitem um controle maior, sem depender, diretamente, da estrutura de pastas do nosso host.</p>
+
+    <p>Terminamos a parte de persistência de dados. A partir de agora, vamos pensar em algumas questões mais elaboradas, fazendo um grande apanhado de tudo o que aprendemos para colocar uma aplicação mais robusta em produção.</p>
+
+    <p>Nos encontramos na próxima aula. Até mais!</p>
+
+</body>
+</html>
