@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunicação através de redes</title>
+    <style>
+        pre {
+            background-color: #090606;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+            font-size: 1em;
+            color: #f0eaea;
+        }
+    </style>
+</head>
+<body>
+    <h1>Comunicação através de redes</h1>
+    <h2>Inspecionar container</h2>
+    <p>É possível inspecionar características de um container em execução, por meio do comando abaixo:</p>
+    <pre><code>docker inspect [CONTAINER ID]</code></pre>
+    <p>Segue abaixo como exemplo de parte da resposta do comando inspect.</p>
+    <pre>
+        <code>
+"NetworkSettings": {
+    "Bridge": "",
+    "SandboxID": "ce99e929e7a8ff470314f7a1da7b1b66225b80ead925501aa87a7eb171135633",
+    "SandboxKey": "/var/run/docker/netns/ce99e929e7a8",
+    "Ports": {},
+    "HairpinMode": false,
+    "LinkLocalIPv6Address": "",
+    "LinkLocalIPv6PrefixLen": 0,
+    "SecondaryIPAddresses": null,
+    "SecondaryIPv6Addresses": null,
+    "EndpointID": "a31fdc4d561585d80a51b3bc39ac79247cc204109e9c2804612136c93e659519",
+    "Gateway": "172.17.0.1",
+    "GlobalIPv6Address": "",
+    "GlobalIPv6PrefixLen": 0,
+    "IPAddress": "172.17.0.2",
+    "IPPrefixLen": 16,
+    "IPv6Gateway": "",
+    "MacAddress": "02:42:ac:11:00:02",
+    "Networks": {
+        "bridge": {
+            "IPAMConfig": null,
+            "Links": null,
+            "Aliases": null,
+            "MacAddress": "02:42:ac:11:00:02",
+            "NetworkID": "62d63fe3cc3bf62e93b1f3b5a5ae2e701f0294516aec44a85c4df8fabfba1675",
+            "EndpointID": "a31fdc4d561585d80a51b3bc39ac79247cc204109e9c2804612136c93e659519",
+            "Gateway": "172.17.0.1",
+            "IPAddress": "172.17.0.2",
+            "IPPrefixLen": 16,
+            "IPv6Gateway": "",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "DriverOpts": null,
+            "DNSNames": null
+        }
+    }
+}
+        </code>
+    </pre>
+    <h2>Listar rede de containers</h2>
+    <p>É possível listar redes de container em execução, por meio do comando abaixo:</p>
+    <pre><code>docker network ls</code></pre>
+
+    <h1>Exercício - Comunicação por rede entre containers</h1>
+    <p>Deve ser ativado em dois terminais distintos, dois containers ubuntu com o seguinte comando.</p>
+    <pre><code>docker run -it ubuntu bash</code></pre>
+    <p>Deve ser instalado o ping em ambos terminais do Ubuntu, com os dois comandos a seguir.</p>
+    <pre><code>apt-get update</code></pre>
+    <pre><code>apt-get install iputils-ping -y</code></pre>
+    <p>Pelo comando <strong>docker inspect [CONTAINER ID]</strong>, é possível verificar que ambos containers possuem o mesmo "NetworkID". Por isso, é possível por meio de cada container pingar no outro por meio do IPAdress do outro container.</p>
+    <p>Basta usar o comando ping [IPAdress].</p>
+    <pre><code>ping 172.17.0.2</code></pre>
+</body>
+</html>
