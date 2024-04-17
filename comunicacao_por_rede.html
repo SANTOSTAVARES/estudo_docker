@@ -68,7 +68,6 @@
     <h2>Listar rede de containers</h2>
     <p>É possível listar redes de container em execução, por meio do comando abaixo:</p>
     <pre><code>docker network ls</code></pre>
-
     <h1>Exercício - Comunicação por rede entre containers</h1>
     <p>Deve ser ativado em dois terminais distintos, dois containers ubuntu com o seguinte comando.</p>
     <pre><code>docker run -it ubuntu bash</code></pre>
@@ -78,5 +77,41 @@
     <p>Pelo comando <strong>docker inspect [CONTAINER ID]</strong>, é possível verificar que ambos containers possuem o mesmo "NetworkID". Por isso, é possível por meio de cada container pingar no outro por meio do IPAdress do outro container.</p>
     <p>Basta usar o comando ping [IPAdress].</p>
     <pre><code>ping 172.17.0.2</code></pre>
+    <h1>Exercício - Criando um rede bridge</h1>
+    <pre><code>docker network create --driver bridge minha-bridge</code></pre>
+    <pre><code>docker run -it --name ubuntu1 --network minha-bridge ubuntu bash</code></pre>
+    <pre><code>apt-get update</code></pre>
+    <pre><code>apt-get install iputils-ping -y</code></pre>
+    <pre><code>docker inspect [CONTAINER ID]</code></pre>
+    <pre><code> "Networks": {
+        "minha-bridge": {
+            "IPAMConfig": null,
+            "Links": null,
+            "Aliases": [
+                "ab730f9fd582"
+            ],
+            "MacAddress": "02:42:ac:12:00:02",
+            "NetworkID": "d0d42e218a00a066c6f8bd2b4298f15b766a562f60b26b675ab799ebca2d2e30",
+            "EndpointID": "398dd53c9bbf17862fe887f3774e49f872d208c08b2fdea36c53480568a9549c",
+            "Gateway": "172.18.0.1",
+            "IPAddress": "172.18.0.2",
+            "IPPrefixLen": 16,
+            "IPv6Gateway": "",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "DriverOpts": null,
+            "DNSNames": [
+                "ubuntu1",
+                "ab730f9fd582"
+            ]
+        }
+    }
+    
+</code>docker run -d --name pong --network minha-bridge ubuntu sleep 1d</pre>
+<p>O container criado acima, para não ser removida imediatamente após sua criação por não ter tarefa, foi usado o parâmetro sleep 1d, para ser removido após 1 dia.</p>
+<p>Se inspecionar os dois containers criados, poderá perceber que ambos estão na mesma rede, porém com IP diferentes.</p>
+<p>No terminal do primeiro container criado, é possível pingar no segundo container criado, com base no nome do segundo, por meio do seguinte comando <strong>ping [Nome do outro container]</strong>.</p>
+<pre><code>ping pong</code></pre>
+        
 </body>
 </html>
